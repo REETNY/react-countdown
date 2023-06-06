@@ -50,7 +50,9 @@ export default function Counter({deleteCount, timerInfos, allCounts, saveDet, ch
         )
     }
 
-    setInterval(eachTimer, 1000)
+    setInterval(eachTimer, 1000);
+
+    let num = state1;
 
 
     setTimeout(
@@ -142,6 +144,7 @@ export default function Counter({deleteCount, timerInfos, allCounts, saveDet, ch
                         <span className="detail">Sec</span>
                     </div>
 
+                    <div className="noDis" style={{display: "none"}}>{num}</div>
                 </div>
             </div>
             {/* <div className="settings">
