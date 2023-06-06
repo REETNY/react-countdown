@@ -9,6 +9,22 @@
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  background-image: url(/public/backForm/BGTOP.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+
+.App::after{
+  width: 100%;
+  height: 100%;
+  content: "";
+  display: block;
+  background: rgb(0, 0, 0, .2);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
 
 .counterCont{
@@ -20,4 +36,49 @@
   align-items: center;
   gap: 40px;
   padding: 35px 30px 80px;
+  z-index: 6;
+}
+
+.formBut{
+  padding-left: 20px;
+  padding-top: 10px;
+  z-index: 6;
+  position: relative;
+}
+
+.openForm{
+  font-size: 25px;
+  color: royalblue;
+  cursor: pointer;
+}
+
+.openForm:hover{
+  animation-name: mixedRotate;
+  animation-duration: 3.5s;
+  animation-delay: .5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes mixedRotate{
+  0%{
+    transform: rotate(180deg);
+    color: deeppink;
+  }
+  25%{
+    transform: rotate(-180deg);
+    color: rgb(153, 58, 241);
+  }
+  50%{
+    transform: rotate(180deg);
+    color: coral;
+  }
+  75%{
+    transform: rotate(-180deg);
+    color: crimson;
+  }
+  100%{
+    transform: rotate(0deg);
+    color: royalblue;
+  }
 }

@@ -7,13 +7,15 @@
 .eachCounter{
     width: 300px;
     height: 300px;
-    border: 2px solid black;
     overflow: hidden;
     position: relative;
+    border-radius: 20px;
+    box-shadow: 0px 4px 3px 2.5px rgb(15, 15, 15, .3);
+    z-index: 6;
 }
 
 .eachCounter::after{
-    background: rgb(17, 17, 17, .3);
+    background: rgb(17, 17, 17, .2);
     position: absolute;
     width: 100%;
     height: 100%;
@@ -21,6 +23,15 @@
     display: block;
     top: 0;
     left: 0;
+}
+
+.eachCounter:hover{
+    animation-name: bounce;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+    animation-duration: 3s;
 }
 
 .fullImg{
@@ -78,6 +89,8 @@
     right: 0;
     display: none;
     z-index: 8;
+    padding-right: 15px;
+    padding-top: 5px;
 }
 
 .details:hover > .controls{
@@ -208,6 +221,8 @@ form button{
     position: absolute;
     top: 0;
     right: 0;
+    padding-right: 10px;
+    padding-top: 10px;
 }
 
 .closeForm{
@@ -260,4 +275,16 @@ form button{
 	100% {
 		background-position: 0% 50%
 	}
+}
+
+@keyframes bounce{
+    0%{
+        transform: translateY(0px);
+    }
+    50%{
+        transform: translateY(-10px);
+    }
+    100%{
+        transform: translateY(0px);
+    }
 }

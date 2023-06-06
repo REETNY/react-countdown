@@ -1,8 +1,9 @@
 import Counter from './components/Counter';
 import Form from './components/Form';
+import Footer from './components/Footer';
 import './App.css';
 import { useState, useEffect } from 'react';
-import { FaTrashAlt } from "react-icons/fa";
+import { AiOutlineAppstoreAdd } from "react-icons/ai";
 
 function App() {
 
@@ -191,19 +192,24 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <>
 
-      <div className="formBut">
-        <FaTrashAlt role="button" tabIndex="0" onClick={closeForm} />
+      <div className="App">
+
+        <div className="formBut">
+          <AiOutlineAppstoreAdd className='openForm' role="button" tabIndex="0" onClick={closeForm} />
+        </div>
+
+        <Form formOpener={closeForm} formDiv={closeFormBool} handleUserEntry={handleEntry} submitFunc={handleSubmit} formEntry={userEntry} apiCall={getBackDrop} />
+
+        <div className="counterCont">
+          {myCountDowns}
+        </div>
+
+        <Footer />
       </div>
 
-      <Form formOpener={closeForm} formDiv={closeFormBool} handleUserEntry={handleEntry} submitFunc={handleSubmit} formEntry={userEntry} apiCall={getBackDrop} />
-
-      <div className="counterCont">
-        {myCountDowns}
-      </div>
-
-    </div>
+    </>
   );
 }
 
