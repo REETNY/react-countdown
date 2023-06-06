@@ -4,7 +4,7 @@ import { FaRemoveFormat } from "react-icons/fa";
 
 export default function Form({handleUserEntry, submitFunc, formEntry, apiCall, formOpener, formDiv}){
     
-    let {timerName, timerDate, timerThumb} = formEntry;
+    let {timerName, timerDate} = formEntry;
     //formOpener formDiv
 
     const style1 = {
