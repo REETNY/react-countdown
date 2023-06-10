@@ -37,7 +37,6 @@ function App() {
 
   function setOverFlow(){
     if(closeFormBool === true){
-      myCountDowns = [];
       setFlow(
         (val) => {
           return !(val)
@@ -134,9 +133,16 @@ function App() {
 
   // functions to start timer functions
 
-  let myCountDowns = countDowns.map((timer) => {
-    return <Counter deleteCount={deleteItem} saveDet={saveDetails} changeDet={changeDetails} key={timer.timerNum} timerInfos={timer} allCounts={countDowns} ftp={fetchNewDrop} />
-  })
+  let myCountDowns
+
+  if(closeFormBool === false){
+    myCountDowns = []
+  }else{
+    myCountDowns = countDowns.map((timer) => {
+      return <Counter deleteCount={deleteItem} saveDet={saveDetails} changeDet={changeDetails} key={timer.timerNum} timerInfos={timer} allCounts={countDowns} ftp={fetchNewDrop} />
+    })
+  }
+
   
 
   // function to edit each timer
