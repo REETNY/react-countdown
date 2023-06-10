@@ -28,7 +28,7 @@ function App() {
   function closeForm(){
     setFormState(
       (oldState) => {
-          return !(oldState)
+        return !(oldState)
       }
     )
 
@@ -37,6 +37,7 @@ function App() {
 
   function setOverFlow(){
     if(closeFormBool === true){
+      myCountDowns = [];
       setFlow(
         (val) => {
           return !(val)
@@ -175,10 +176,15 @@ function App() {
 
   async function fetchNewDrop(e, id){
     let {value} = e.target;
-    const myKey = `D5Uuj8BTp5wUzFEBuZ2hBxrN9M6op4MyZHS3puOwCO0`;
-    const serverResponse = await fetch(`https://api.unsplash.com/search/photos?query=${value.toLowerCase()}&client_id=`+myKey);
-    let serverReply = await serverResponse.json()
-    let data = serverReply.results[0].urls.small;
+    let data;
+    try{
+      const myKey = `D5Uuj8BTp5wUzFEBuZ2hBxrN9M6op4MyZHS3puOwCO0`;
+      const serverResponse = await fetch(`https://api.unsplash.com/search/photos?query=${value.toLowerCase()}&client_id=`+myKey);
+      let serverReply = await serverResponse.json()
+      data = serverReply.results[0].urls.small;
+    }catch{
+      data = (`BG/${bGArray[Math.floor(Math.random() * bGArray.length)]}`);
+    }
    
     let changedDrop = countDowns.map((counter) => {
       return counter.timerNum !== id ? counter : {...counter, timerThumb: data}

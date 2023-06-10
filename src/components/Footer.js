@@ -7,7 +7,7 @@ export default function Footer(){
     return(
         <>
             <footer className="mainFooter">
-                <div className="designer">AJIDEX / AJIDE SHAMSIDEEN &copy; Copyright reserved - 2022 to {currYear} </div>
+                <div className="designer">AJIDEX &copy; Copyright reserved - 2022 to {currYear} </div>
             </footer>
         </>
     )

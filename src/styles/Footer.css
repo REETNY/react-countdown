@@ -13,6 +13,12 @@
 
 .designer{
     color: whitesmoke;
-    font-size: 19px;
+    font-size: 17px;
     font-weight: 900;
+}
+
+@media only screen and (max-width: 500px){
+    .designer{
+        font-size: 14px;
+    }
 }

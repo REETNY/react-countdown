@@ -4,7 +4,7 @@ import { AiFillSetting } from "react-icons/ai";
 import { BsSave } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import "../styles/Counter.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 //timerId={timer.timerNum} timerDate={timer.timerDate} timerName={timer.timerName} timerDrop={timer.timerThumb}
 
@@ -12,9 +12,11 @@ export default function Counter({deleteCount, timerInfos, allCounts, saveDet, ch
 
     const {timerThumb: timerDrop, timerDate, timerName, timerNum: timerId} = timerInfos;
 
-    let openMenu = useRef(timerInfos.edit);
-
     let [state1, setState1] = useState(0);
+
+    let [sec, setSec] = useState('')
+
+    let openMenu = useRef(timerInfos.edit);
 
     let currDate = useRef(timerInfos.timerDate)
 
@@ -25,41 +27,57 @@ export default function Counter({deleteCount, timerInfos, allCounts, saveDet, ch
         secs: "00"
     })
 
+    let timerRef = useRef('');
+
     let currName = useRef(timerInfos.timerName);
 
-    // console.log(currDate)
+    const startTimer = () => {
 
-    function eachTimer(){
-        // console.log(currDate.current)
-        const currentTime = new Date().getTime();
-        const futureTime = new Date(currDate.current).getTime();
-        
-        let remainigTime = futureTime - currentTime;
-        let daysLeft = Math.floor((remainigTime / 1000 / 3600 ) / 24);
-        let hoursLeft =  Math.floor((remainigTime / 1000 / 3600) % 24);
-        let minsLeft =  Math.floor((remainigTime / 1000 / 60) % 60);
-        let secsLeft =  Math.floor(((remainigTime / 1000) % 60) + 1);
-        
-        obj.current.days = daysLeft;
-        obj.current.hours = hoursLeft;
-        obj.current.mins = minsLeft;
-        obj.current.secs = secsLeft;
+        timerRef.current = setInterval(
+            () => {
+                let currTime = new Date().getTime();
+                let futureTime = new Date(currDate.current).getTime();
+                let remainingTime = futureTime - currTime;
+                let daysLeft = Math.floor((remainingTime / 1000 / 3600 / 24) % 24);
+                let hoursLeft =  Math.floor((remainingTime / 1000 / 3600) % 24);
+                let minsLeft =  Math.floor((remainingTime / 1000 / 60) % 60);
+                let secsLeft =  Math.floor((remainingTime / 1000) % 60);
 
-        setState1(
-            (num) => num + 1
+                obj.current = {
+                    days: daysLeft > 9 ? daysLeft : `0${daysLeft}`,
+                    hours: hoursLeft > 9 ? hoursLeft : `0${hoursLeft}`,
+                    mins: minsLeft > 9 ? minsLeft : `0${minsLeft}`,
+                    secs: secsLeft > 9 ? secsLeft : `0${secsLeft}`
+                };
+
+                setSec(
+                    () => secsLeft
+                )
+
+            }, 1000
         )
+
     }
 
-    setInterval(eachTimer, 1000);
+    const stopTimer = () => {
+        clearInterval(timerRef.current);
+    }
+
+    if(sec < 0){
+        obj.current.secs = `00`;
+        obj.current.mins = `00`;
+        obj.current.hours = `00`;
+        obj.current.days = `00`;
+        stopTimer();
+    }
+
+    useEffect(
+        () => {
+            startTimer()
+        }
+    )
 
     let num = state1;
-
-
-    setTimeout(
-        () => {
-            // startCounting()
-        }, 3000
-    )
 
     function getClicker(id){
         // stopCounting()
@@ -147,18 +165,7 @@ export default function Counter({deleteCount, timerInfos, allCounts, saveDet, ch
                     <div className="noDis" style={{display: "none"}}>{num}</div>
                 </div>
             </div>
-            {/* <div className="settings">
-                <form action="">
-                    <label htmlFor="name">
-                        <span className="changeName">New Name</span>
-                        <input type="text" name="" id="name" />
-                    </label>
-                    <label htmlFor="date">
-                        <span className="changeName">New Date</span>
-                        <input type="datetime-local" name="" id="date" />
-                    </label>
-                </form>
-            </div> */}
+            
         </div>
     )
 }
