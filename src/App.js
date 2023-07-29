@@ -2,7 +2,7 @@ import Counter from './components/Counter';
 import Form from './components/Form';
 import Footer from './components/Footer';
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
 
   let [overfloat, setFlow] = useState(true)
 
-  let [countDowns, setCountDowns] = useState(JSON.parse(localStorage.getItem("todosCountDown")) || []);
+  let [countDowns, setCountDowns] = useState(JSON.parse(localStorage.getItem("todosCountDown")));
 
   let [userEntry, setUserEntry] = useState({
     timerName: "",
@@ -23,7 +23,22 @@ function App() {
     edit: false,
     timerThumb: "",
     timerNum: ""
-  })
+  });
+
+  let [refresh, setRefresh] = useState(0)
+
+
+  
+  const startTimer = (it1) => {
+    let currTime = new Date().getTime();
+    let futureTime = new Date(it1).getTime();
+    let remainingTime = futureTime - currTime;
+    let daysLeft = Math.floor((remainingTime / 1000 / 3600 / 24));
+    let hoursLeft =  Math.floor((remainingTime / 1000 / 3600) % 24);
+    let minsLeft =  Math.floor((remainingTime / 1000 / 60) % 60);
+    let secsLeft =  Math.floor((remainingTime / 1000) % 60);
+    return ({daysLeft, hoursLeft, minsLeft, secsLeft})
+  }
 
   function closeForm(){
     setFormState(
@@ -138,8 +153,8 @@ function App() {
   if(closeFormBool === false){
     myCountDowns = []
   }else{
-    myCountDowns = countDowns.map((timer) => {
-      return <Counter deleteCount={deleteItem} saveDet={saveDetails} changeDet={changeDetails} key={timer.timerNum} timerInfos={timer} allCounts={countDowns} ftp={fetchNewDrop} />
+    myCountDowns = countDowns.map((timer, index) => {
+      return <Counter deleteCount={deleteItem} saveDet={saveDetails} changeDet={changeDetails} key={index} timerInfos={timer} timerFunc={startTimer} allCounts={countDowns} ftp={fetchNewDrop} />
     })
   }
 
@@ -202,6 +217,13 @@ function App() {
       }
     )
   }
+
+
+  useEffect(() => {
+    setInterval(() => {
+      setRefresh((val) => val + 1)
+    }, 1000)
+  }, [countDowns])
 
   return (
     <>

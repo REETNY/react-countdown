@@ -8,76 +8,16 @@ import { useEffect, useRef, useState } from "react";
 
 //timerId={timer.timerNum} timerDate={timer.timerDate} timerName={timer.timerName} timerDrop={timer.timerThumb}
 
-export default function Counter({deleteCount, timerInfos, allCounts, saveDet, changeDet, ftp}){
+export default function Counter({deleteCount, timerInfos, timerFunc, allCounts, saveDet, changeDet, ftp}){
 
     const {timerThumb: timerDrop, timerDate, timerName, timerNum: timerId} = timerInfos;
+    let [openState, setState1] = useState(0)
+    let openMenu = useRef()
+    let currName = useRef(timerName);
+    let currDate = useRef(timerDate);
+    let num = openState;
 
-    let [state1, setState1] = useState(0);
-
-    let [sec, setSec] = useState('')
-
-    let openMenu = useRef(timerInfos.edit);
-
-    let currDate = useRef(timerInfos.timerDate)
-
-    let obj = useRef({
-        days: "00",
-        hours: "00",
-        mins: "00",
-        secs: "00"
-    })
-
-    let timerRef = useRef('');
-
-    let currName = useRef(timerInfos.timerName);
-
-    const startTimer = () => {
-
-        timerRef.current = setInterval(
-            () => {
-                let currTime = new Date().getTime();
-                let futureTime = new Date(currDate.current).getTime();
-                let remainingTime = futureTime - currTime;
-                let daysLeft = Math.floor((remainingTime / 1000 / 3600 / 24) % 24);
-                let hoursLeft =  Math.floor((remainingTime / 1000 / 3600) % 24);
-                let minsLeft =  Math.floor((remainingTime / 1000 / 60) % 60);
-                let secsLeft =  Math.floor((remainingTime / 1000) % 60);
-
-                obj.current = {
-                    days: daysLeft > 9 ? daysLeft : `0${daysLeft}`,
-                    hours: hoursLeft > 9 ? hoursLeft : `0${hoursLeft}`,
-                    mins: minsLeft > 9 ? minsLeft : `0${minsLeft}`,
-                    secs: secsLeft > 9 ? secsLeft : `0${secsLeft}`
-                };
-
-                setSec(
-                    () => secsLeft
-                )
-
-            }, 1000
-        )
-
-    }
-
-    const stopTimer = () => {
-        clearInterval(timerRef.current);
-    }
-
-    if(sec < 0){
-        obj.current.secs = `00`;
-        obj.current.mins = `00`;
-        obj.current.hours = `00`;
-        obj.current.days = `00`;
-        stopTimer();
-    }
-
-    useEffect(
-        () => {
-            startTimer()
-        }
-    )
-
-    let num = state1;
+    let returnedTime = timerFunc(currDate.current);
 
     function getClicker(id){
         // stopCounting()
@@ -143,22 +83,22 @@ export default function Counter({deleteCount, timerInfos, allCounts, saveDet, ch
                 <div className="counterNums">
 
                     <div className="dayCont">
-                        <span className="NumEl" id="numType1">{obj.current.days}</span>
+                        <span className="NumEl" id="numType1">{returnedTime.daysLeft}</span>
                         <span className="detail">Day</span>
                     </div>
 
                     <div className="hourCont">
-                        <span className="NumEl" id="numType2">{obj.current.hours}</span>
+                        <span className="NumEl" id="numType2">{returnedTime.hoursLeft}</span>
                         <span className="detail">Hour</span>
                     </div>
 
                     <div className="minCont">
-                        <span className="NumEl" id="numType3">{obj.current.mins}</span>
+                        <span className="NumEl" id="numType3">{returnedTime.minsLeft}</span>
                         <span className="detail">Min</span>
                     </div>
 
                     <div className="secCont">
-                        <span className="NumEl" id="numType4">{obj.current.secs}</span>
+                        <span className="NumEl" id="numType4">{returnedTime.secsLeft}</span>
                         <span className="detail">Sec</span>
                     </div>
 
