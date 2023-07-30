@@ -4,7 +4,7 @@ import { AiFillSetting } from "react-icons/ai";
 import { BsSave } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import "../styles/Counter.css";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 //timerId={timer.timerNum} timerDate={timer.timerDate} timerName={timer.timerName} timerDrop={timer.timerThumb}
 

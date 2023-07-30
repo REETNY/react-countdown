@@ -2,7 +2,7 @@ import Counter from './components/Counter';
 import Form from './components/Form';
 import Footer from './components/Footer';
 import './App.css';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 
 function App() {
@@ -240,7 +240,7 @@ function App() {
           {myCountDowns}
         </div>
 
-        <Footer />
+        <Footer st={refresh} />
       </div>
 
     </>
