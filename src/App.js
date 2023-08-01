@@ -152,7 +152,7 @@ function App() {
 
   if(closeFormBool === false){
     myCountDowns = [""]
-  }else{
+  }else if(countDowns.length > 0 && closeFormBool){
     myCountDowns = countDowns.map((timer, index) => {
       return <Counter deleteCount={deleteItem} saveDet={saveDetails} changeDet={changeDetails} key={index} timerInfos={timer} timerFunc={startTimer} allCounts={countDowns} ftp={fetchNewDrop} />
     })
@@ -220,6 +220,7 @@ function App() {
 
 
   useEffect(() => {
+    if(countDowns.length === 0)return;
     setInterval(() => {
       setRefresh((val) => val + 1)
     }, 1000)
