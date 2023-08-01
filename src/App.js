@@ -15,7 +15,7 @@ function App() {
 
   let [overfloat, setFlow] = useState(true)
 
-  let [countDowns, setCountDowns] = useState(JSON.parse(localStorage.getItem("todosCountDown")));
+  let [countDowns, setCountDowns] = useState(JSON.parse(localStorage.getItem("todosCountDown")) || []);
 
   let [userEntry, setUserEntry] = useState({
     timerName: "",
