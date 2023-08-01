@@ -151,7 +151,7 @@ function App() {
   let myCountDowns
 
   if(closeFormBool === false){
-    myCountDowns = []
+    myCountDowns = [""]
   }else{
     myCountDowns = countDowns.map((timer, index) => {
       return <Counter deleteCount={deleteItem} saveDet={saveDetails} changeDet={changeDetails} key={index} timerInfos={timer} timerFunc={startTimer} allCounts={countDowns} ftp={fetchNewDrop} />
